@@ -11,6 +11,6 @@
 ![To Be Named](/images/DBsCollsDocs.jpg)  
 
 ## Documents: Scalar Types  
-
+Further info to be added
 
 
