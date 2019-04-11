@@ -24,6 +24,8 @@ Typical commands:
 ``use <databasename>`` switches database and connects  
 ``show collections`` show collections in currently connected database  
 ``db.<collectionname>.find().pretty()`` lists Documents in collection  
+``show dbs`` show databases in cluster  
+``load("filename.js")`` load data from script file  
 
 Note:  
 - Only primaries in a cluster can accept write operations.  
