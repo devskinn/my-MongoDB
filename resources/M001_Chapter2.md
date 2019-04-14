@@ -31,6 +31,58 @@ Note:
 - Only primaries in a cluster can accept write operations.  
 - All hostnames are included in the connection string in case the primary goes down.  
 
+**Insert 1**  
+
+Method used to insert one document in to a database using the mongo shell.  
+
+Example: ``db.moviesScratch.insertOne({title: "Star Trek II: The Wrath of Khan", year: 1982, imdb: "tt0084726"})``  
+
+If entered correctly output should be:  
+```
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("5cb3432a369ae4789d30e5f0")
+}
+```  
+Note: ObjectId is created automatically but can be created manually if required.  
+
+**Insert Many**  
+
+Method used to insert multiple documents in to a database using the mongo shell.  
+
+Example:  
+```
+db.moviesScratch.insertMany(
+    [
+        {
+	    "_id" : "tt0084726",
+	    "title" : "Star Trek II: The Wrath of Khan",
+	    "year" : 1982,
+	    "type" : "movie"
+        },
+        {
+	    "_id" : "tt0796366",
+	    "title" : "Star Trek",
+	    "year" : 2009,
+	    "type" : "movie"
+        },
+        {
+	    "_id" : "tt0084726",
+	    "title" : "Star Trek II: The Wrath of Khan",
+	    "year" : 1982,
+	    "type" : "movie"
+        }
+    ],
+    {
+        "ordered": false 
+    }
+);
+```  
+
+
+
+
+
 
 
 
