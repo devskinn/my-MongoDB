@@ -79,6 +79,38 @@ db.moviesScratch.insertMany(
 );
 ```  
 
+**Reading Documents: Scalar Fields**  
+
+Method used to search for documents is 'Find', examples below are using mongo shell.  
+
+Example:  
+```
+use video  
+db.movies.find({mpaaRating: "PG-13"}).pretty()  
+```  
+
+Searching sub documents:  
+Use 'dot' notation to search sub docs e.g.  
+```
+use 100YWeatherSmall  
+db.data.find({"wind.direction.angle": 100}).pretty()  
+```  
+
+```
+use video  
+db.movieDetails.find({"rated": "PG", "awards.nominations": 10}).count()  
+```  
+
+**Reading Documents: Array Fields**  
+
+Array matches can be based on the whole array, elements of the array or a specific element of the array.  
+
+Find all movies in which Jeff Bridges is the first named actor in the array:  
+```
+db.movies.find({"cast.0": "Jeff Bridges"})  
+```  
+
+
 
 
 
