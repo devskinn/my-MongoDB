@@ -110,6 +110,81 @@ Find all movies in which Jeff Bridges is the first named actor in the array:
 db.movies.find({"cast.0": "Jeff Bridges"})  
 ```  
 
+**Cursors**  
+
+- Pointer to current location in a result set.  
+- Default is set for cursor to return 20 items.  
+- Entering "it" will iterate through the result set showing 20 items at a time.  
+
+**Projections**  
+
+- Reduces network and resources requirements by limiting fields returned in a result document.  
+- Can be defined as the second argument when using the 'find' method.  
+- A '1' in the projection explicitly includes a field, using '0' explicitly excludes the field.  
+
+Example: Return only the title  
+``db.movies.find({genre: "Action, Adventure"}, {title: 1})``  
+
+Example: Return only the title and exlude the object id  
+``db.movies.find({genre: "Action, Adventure"}, {title: 1, _id: 0})``  
+
+**Update Documents: updateOne()**  
+
+updateOne() is the method used to update single documents.  
+
+Example: 'The Martian' movie does not include a field with a link to the movie poster, the following will add this:  
+```
+db.movieDetails.updateOne({
+  title: "The Martian"
+}, {
+  $set: {
+    poster: "http://ia.media-imdb.com/images/....."
+  }
+})
+```  
+output will be:  
+``{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }``  
+
+Example: Update with a field (awards) containing multiple entries:  
+```
+db.movieDetails.updateOne({
+  title: "The Martian"
+}, {
+  $set: {
+    "awards": {
+      "wins": 8,
+      "nominations": 14,
+      "text": "Nominated for 3 Golden Globes. Another 8 wins and 14 nominations."
+    }
+  }
+})
+```  
+
+**Update Operators**  
+
+- Used to correct errors.  
+- Keep data current over time.  
+
+Examples: Above shows **$set** operator, below shows incrementing fields using the **$inc** operator:
+```
+db.movieDetails.updateOne({
+  title: "The Martian"
+}, {
+  $inc: {
+    "tomato.reviews": 3,
+    "tomato.userReviews": 25
+  }
+})
+```  
+
+Updating arrays uses several operators such as **$pop**, **$push**, **$pull**, **$pullall** etc, see documentation for details.  
+
+Link to documentation: https://docs.mongodb.com/manual/reference/operator/update/  
+
+
+
+
+
 
 
 
