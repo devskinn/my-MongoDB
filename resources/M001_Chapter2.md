@@ -12,7 +12,7 @@
 - Set environment path to point to install/bin folder.  
 - Can use ``mongo --nodb`` to check shell is working as expected.  
 
- **Mongo Shell**  
+ ### Mongo Shell  
 
  Typical connect string - connects to a database called test in the cluster  
  Must be run from command line and not in the mongo shell, otherwise an error will occur  
@@ -31,7 +31,7 @@ Note:
 - Only primaries in a cluster can accept write operations.  
 - All hostnames are included in the connection string in case the primary goes down.  
 
-**Insert 1**  
+### Insert 1  
 
 Method used to insert one document in to a database using the mongo shell.  
 
@@ -46,7 +46,7 @@ If entered correctly output should be:
 ```  
 Note: ObjectId is created automatically but can be created manually if required.  
 
-**Insert Many**  
+### Insert Many  
 
 Method used to insert multiple documents in to a database using the mongo shell.  
 
@@ -79,7 +79,7 @@ db.moviesScratch.insertMany(
 );
 ```  
 
-**Reading Documents: Scalar Fields**  
+### Reading Documents: Scalar Fields  
 
 Method used to search for documents is 'Find', examples below are using mongo shell.  
 
@@ -101,7 +101,7 @@ use video
 db.movieDetails.find({"rated": "PG", "awards.nominations": 10}).count()  
 ```  
 
-**Reading Documents: Array Fields**  
+### Reading Documents: Array Fields  
 
 Array matches can be based on the whole array, elements of the array or a specific element of the array.  
 
@@ -110,13 +110,13 @@ Find all movies in which Jeff Bridges is the first named actor in the array:
 db.movies.find({"cast.0": "Jeff Bridges"})  
 ```  
 
-**Cursors**  
+### Cursors  
 
 - Pointer to current location in a result set.  
 - Default is set for cursor to return 20 items.  
 - Entering "it" will iterate through the result set showing 20 items at a time.  
 
-**Projections**  
+### Projections  
 
 - Reduces network and resources requirements by limiting fields returned in a result document.  
 - Can be defined as the second argument when using the 'find' method.  
@@ -128,7 +128,7 @@ Example: Return only the title
 Example: Return only the title and exlude the object id  
 ``db.movies.find({genre: "Action, Adventure"}, {title: 1, _id: 0})``  
 
-**Update Documents: updateOne()**  
+### Update Documents: updateOne()  
 
 updateOne() is the method used to update single documents.  
 
@@ -160,7 +160,7 @@ db.movieDetails.updateOne({
 })
 ```  
 
-**Update Operators**  
+### Update Operators  
 
 - Used to correct errors.  
 - Keep data current over time.  
@@ -181,6 +181,75 @@ Updating arrays uses several operators such as **$pop**, **$push**, **$pull**, *
 
 Link to documentation: https://docs.mongodb.com/manual/reference/operator/update/  
 
+### Update Documents: updateMany()  
+
+updateMany() makes same changes to all documents that match the filter used.  
+
+Example: Using the **$unset** operator to remove all the fields specified that have a value of null:  
+```
+db.movieDetails.updateMany({
+  rated: null
+}, {
+  $unset: {
+    rated: ""
+  }
+})
+```  
+
+### Upserts  
+
+Following will update any documents already in the collection and if the document does not exist, the **upsert** command will enter it into the collection as a new document.  
+```
+db.movieDetails.updateOne({
+  "imdb.id": details.imdb.id
+}, {
+  $set: detail
+}, {
+  upsert: true
+});
+```  
+
+### Update Documents: replaceOne()  
+
+Mongo shell is based on javascript and thus following commands require a semi colon at the end of each line.  
+```
+# set filter variable to value of movie title which requires updating
+let filter = {title: "House, M.D., Season Four: New Beginnings"};
+
+# set doc variable to document details specified by the filter
+let doc = db.movieDetails.findOne(filter);
+
+# get current value of doc.poster
+doc.poster;
+
+# change value of doc.poster
+doc.poster = "https://www.imdb.com/title/tt1329164/mediaviewer/rm2619416576";
+
+# get current values of doc.genres
+doc.genres;
+
+# add a new value to the doc.genres array
+doc.genres.push("TV Series");
+
+# at this time the changes only exist in the mongo shell
+# use the following to update the database (using values from the filter and doc variables)
+db.movieDetails.replaceOne(filter, doc);
+```  
+
+Important aspect to consider about replaceOne:  
+
+- The replacement document cannot contain update operators.  
+- replaceOne will apply changes to only one document, the first found in the server that matches the filter expression, using the $natural order of documents in the collection.  
+
+### Deleting Documents  
+
+Methods supported are **deleteOne()** and **deleteMany()** and are similar to the corresponding update methods.  
+
+Use deleteOne() to remove a single document usings its object id:  
+``db.reviews.deleteOne({_id: ObjectId("5cae643ea7c101056d6eef8e")})``  
+
+Use deleteMany() to remove all documents belonging to the reviewer id specified:  
+``db.reviews.deleteMany({reviewer_id: 759723314})``  
 
 
 
