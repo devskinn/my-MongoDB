@@ -8,7 +8,7 @@
 - Each database and collection combination define a namespace  
 - Collections referenced by databaseName.collectionName  
 
-![To Be Named](/images/DBsCollsDocs.jpg)  
+![To Be Named](/images/DBsCollsDocs.jpg)
 
 ### Documents: Scalar Value Types  
 - Use schema view to see field types.  
