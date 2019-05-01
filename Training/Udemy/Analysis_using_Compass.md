@@ -1,10 +1,10 @@
-Using Compass to analyse blog post data
+## Using Compass to analyse blog post data  
 
-Resources used from course:
-MongoDB-Practical-Slides-Section6.pdf
-P71-Section6-Dataset.zip
+Resources used from course:  
+MongoDB-Practical-Slides-Section6.pdf  
+P71-Section6-Dataset.zip  
 
-Procedures:
+**Procedures:**  
 
 Quantitative Fields: likes, dislikes, views, date_created
 1. Project - Set the fields required and leave these set
@@ -17,36 +17,37 @@ Quantitative Fields: likes, dislikes, views, date_created
 8. Get posts above and below the midpoint value (1st July 2018)
 9. Create summary chart of findings Min - Max - Midpoint - $lt midpoint+% - $gte midpoint+%
 
-Categorical Fields: topic
-1. 
+Categorical Fields: topic  
+1. work in progress
 
 
-Expand Options:
+**Expand Options:**  
 
-FILTER
-{likes: {$gte: 251}}
-{likes: {$lt: 251}}
-Midpoint syntax for Date object: {date_created: {$gte: new Date("2018-07-01")}}
+FILTER  
+{likes: {$gte: 251}}  
+{likes: {$lt: 251}}  
+Midpoint syntax for Date object:  
+{date_created: {$gte: new Date("2018-07-01")}}  
 
-PROJECT
-Used to identify only the fields required for the analysis.
-{topic: 1, likes: 1, dislikes: 1, views: 1, date_created: 1}
+PROJECT  
+Used to identify only the fields required for the analysis.  
+{topic: 1, likes: 1, dislikes: 1, views: 1, date_created: 1}  
 
-SORT
-Used to sort the data
-Get Min No of Likes: {likes: 1}  will return in Ascending order (min to max)
-Get Max No of Likes: {likes: -1} will return in Descending order (max to min)
-Get most recent posts: {date_created: -1}
+SORT  
+Used to sort the data  
+Get Min No of Likes: {likes: 1}  will return in Ascending order (min to max)  
+Get Max No of Likes: {likes: -1} will return in Descending order (max to min)  
+Get most recent posts: {date_created: -1}  
 
-COLLATION
+COLLATION  
 
-Example Document:
-_id: 5c9fee8966d8c1392df11009
-post_id: 349
-user_id: 72
-body: "Lorem ipsum dolor sit amet"
-topic: "music"
-likes: 500
-dislikes: 300
-views: 808
-date_created: 2018-07-12T12:08:12.000+00:00
+Example Document:  
+_id: 5c9fee8966d8c1392df11009  
+post_id: 349  
+user_id: 72  
+body: "Lorem ipsum dolor sit amet"  
+topic: "music"  
+likes: 500  
+dislikes: 300  
+views: 808  
+date_created: 2018-07-12T12:08:12.000+00:00  
